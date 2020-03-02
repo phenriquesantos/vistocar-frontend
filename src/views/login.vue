@@ -1,6 +1,11 @@
 {<script>
 export default {
- name: 'login' 
+  head: {
+    title:{
+      inner: 'Vistocar - Login'
+    }
+  },
+  name: 'login',
 }
 </script>
 
@@ -58,6 +63,7 @@ export default {
         text-transform: uppercase;
         display: block;
         margin-bottom: 10px;
+        font-size: 14px;
       }
 
       input{
@@ -89,7 +95,14 @@ export default {
         color: #0b5f98;
         text-decoration: none;
         display: block;
+        padding: 10px 0;
+        font-size: 14px;
         float: left;
+
+        &:hover{
+          color: #ffcc00;
+          text-decoration: underline;
+        }
       }
     }
   }
