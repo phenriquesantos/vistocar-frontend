@@ -10,6 +10,11 @@ export default new Router({
       component: () => import('./views/login.vue'),
       name: 'login',
       path: '/login',
+    },
+    {
+      component: () => import('./views/scheduling.vue'),
+      name: 'scheduling',
+      path: '/scheduling',
     }
   ]
 })
