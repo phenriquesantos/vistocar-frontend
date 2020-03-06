@@ -7,6 +7,9 @@ export default {
 <template>
   <div class="scheduling">
     <form class="scheduling__form">
+      <figure class="scheduling__form__logo">
+        <img src="../assets/images/vistocar-logo.png" title="Vistocar" alt="Vistocar" />
+      </figure>
       <h1 class="scheduling__form__title">Agendamento de vistoria</h1>
       <fieldset>
         <legend>Dados do Veículo</legend>
@@ -116,7 +119,8 @@ export default {
     justify-content: center;
     align-items: center;
     background: #ebebeb;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 30px 0;
 
     &__form{
       width: 600px;
@@ -124,6 +128,15 @@ export default {
       background: white;
       border: 1px solid #ddd;
       border-radius: 10px;
+
+      &__logo{
+        text-align: center;
+        margin-bottom: 20px;
+
+        img{
+          max-height: 80px;
+        }
+      }
 
       &__title{
         text-transform: uppercase;
