@@ -29,7 +29,8 @@ export default {
 
 <style lang="less">
   .login{
-    height: 100vh;
+    // height: 100vh;
+    padding: 100px 0;
     background: #ebebeb;
     display: flex;
     justify-content: center;
