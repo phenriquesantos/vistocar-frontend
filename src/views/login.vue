@@ -1,5 +1,10 @@
-{<script>
+<script>
+import pages from '@/components/common/pages.vue';
 export default {
+  components: {
+    'page-default': pages
+  },
+
   head: {
     title:{
       inner: 'Vistocar - Login'
@@ -10,21 +15,23 @@ export default {
 </script>
 
 <template>
-  <div class="login">
-    <form class="login__form">
-      <figure class="login__form__image">
-        <img src="../assets/images/vistocar-logo.png" alt="Grupo VistoCar" title="VistoCar" />
-      </figure>
-      <label for="txt_login">Login</label>
-      <input type="text" name="login" id="txt_login" placeholder="Login" required />
+  <page-default>
+    <div class="login">
+      <form class="login__form">
+        <figure class="login__form__image">
+          <img src="../assets/images/vistocar-logo.png" alt="Grupo VistoCar" title="VistoCar" />
+        </figure>
+        <label for="txt_login">Login</label>
+        <input type="text" name="login" id="txt_login" placeholder="Login" required />
 
-      <label for="txt_pass">Senha</label>
-      <input type="password" name="pass" placeholder="Senha" id="txt_pass" />
+        <label for="txt_pass">Senha</label>
+        <input type="password" name="pass" placeholder="Senha" id="txt_pass" />
 
-      <a href="#">Esqueceu a senha ?</a>
-      <button type="submit">Login</button>
-    </form>
-  </div>
+        <a href="#">Esqueceu a senha ?</a>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </page-default>
 </template>
 
 <style lang="less">
