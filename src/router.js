@@ -15,6 +15,11 @@ export default new Router({
       component: () => import('./views/scheduling.vue'),
       name: 'scheduling',
       path: '/scheduling',
+    },
+    {
+      component: () => import('./views/register.vue'),
+      name: 'register',
+      path: '/register',
     }
   ]
 })
