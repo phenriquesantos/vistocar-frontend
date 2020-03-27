@@ -1,6 +1,6 @@
 <script>
 // import authVerify from '@/functions/auth-verify';
-// import axios from '@/plugins/axios';
+import axios from '@/plugins/axios';
 
 import page from '@/components/common/pages.vue';
 
@@ -17,6 +17,51 @@ export default {
   
   components: {
     'page-default': page
+  },
+
+  data(){
+    return {
+      board: '',
+      brand: '',
+      date: '',
+      hour: '',
+      model: '',
+      year: '',
+      error: []
+    }
+  },
+
+  methods: {
+    async sendForm(e){
+      e.preventDefault();
+      try{
+        // if()
+        const { data } = await axios({
+          methods: 'POST',
+          url: '/schedule',
+          data: {
+            status: 'new',
+            created_at: Date.now(),
+            client_id: 1,
+            date: this.date,
+            time: this.hour,
+            vehicle_board: this.board,
+            vehicle_brand: this.brand,
+            vehicle_model: this.model,
+            vehicle_year: this.year
+          },
+          headers: {
+            // 'Authorization': `Bearer ${}`
+          }
+        });
+
+        if(data){
+          console.log(data);
+        }
+      }catch(e){
+        console.log(e)
+      }
+    }
   }
 }
 </script>
@@ -26,7 +71,7 @@ export default {
 
     <div class="scheduling">
       <div class="container">
-        <form class="scheduling__form">
+        <form class="scheduling__form" v-on:submit="sendForm($event)">
           <!-- <figure class="scheduling__form__logo">
             <img src="../assets/images/vistocar-logo.png" title="Vistocar" alt="Vistocar" />
           </figure> -->
@@ -36,8 +81,7 @@ export default {
             <div class="row">
               <div class="col-6">
                 <label for="txt_brand">Marca</label>
-                <select name="brand" id="txt_brand">
-                  <option value="deafult" disabled selected>---Selecionar---</option>
+                <select name="brand" id="txt_brand" required v-model="brand">
                   <option value="agrale">Agrale</option>
                   <option value="astonmartin">Astonmartin</option>
                   <option value="audi">Audi</option>
@@ -97,18 +141,18 @@ export default {
               </div><!-- col-6 -->
               <div class="col-6">
                 <label for="txt_model">Modelo</label>
-                <input type="text" name="model" id="txt_model" placeholder="Modelo do veículo" />
+                <input type="text" name="model" id="txt_model" placeholder="Modelo do veículo" required v-model="model" />
               </div><!-- col 6 -->
             </div><!-- row -->
 
             <div class="row">
               <div class="col-6">
                 <label for="txt_board">Placa</label>
-                <input type="text" name="board" id="txt_board" placeholder="Placa do veículo" />
+                <input type="text" name="board" id="txt_board" placeholder="Placa do veículo" required v-model="board" />
               </div>
               <div class="col-6">
                 <label for="txt_year">Ano</label>
-                <input type="text" name="year" id="txt_year" placeholder="Ano"/>
+                <input type="text" name="year" id="txt_year" placeholder="Ano" required v-model="year" />
               </div>
             </div>
           </fieldset>
@@ -119,11 +163,11 @@ export default {
             <div class="row">
               <div class="col-6">
                 <label for="txt_date">Data</label>
-                <input type="text" id="txt_date" placeholder="11/12/2020">
+                <input type="text" id="txt_date" placeholder="11/12/2020" required v-model="year" />
               </div><!-- col 6 -->
               <div class="col-6">
                 <label for="txt_hour">Horario</label>
-                <input type="text" id="txt_hour" placeholder="11:00" />
+                <input type="text" id="txt_hour" placeholder="11:00" required v-model="hour" />
               </div>
             </div><!-- row -->
           </fieldset>
