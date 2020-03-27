@@ -62,13 +62,14 @@ export default {
         });
 
         localStorage.user = JSON.stringify(data);
-        this.router.push('/admin')
+        this.$router.push('/admin')
       }catch(e) {
         if(e.message == 'Request failed with status code 400'){
           this.error.push({
             message: "E-mail e/ou senha invalido."
           });
         }else{
+          console.log(e);
           this.error.push({
             message: "Erro ao fazer login. Tente novamente mais tarde!"
           })

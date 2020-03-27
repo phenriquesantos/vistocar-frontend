@@ -30,6 +30,11 @@ export default new Router({
       component: () => import('./views/admin/client/list.vue'),
       name: 'admin-client-list',
       path: '/admin/client/list'
+    },
+    {
+      component: () => import('./views/admin/report/form.vue'),
+      name: 'admin-report-form',
+      path: '/admin/report/new'
     }
   ]
 })
