@@ -1,22 +1,12 @@
 <script>
-import header from './components/common/header.vue';
-import footer from './components/common/footer.vue';
-
 export default {
-  components: {
-    'header-default': header,
-    'footer-default': footer
-  },
-
   name: 'App',
 };
 </script>
 
 <template>
   <div id="app">
-    <header-default />
     <router-view></router-view>
-    <footer-default />
   </div>
 </template>
 
