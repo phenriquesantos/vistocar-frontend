@@ -37,7 +37,7 @@ export default {
       try{
         // if()
         const { data } = await axios({
-          methods: 'POST',
+          method: 'POST',
           url: '/schedule',
           data: {
             status: 'new',
@@ -57,6 +57,7 @@ export default {
 
         if(data){
           console.log(data);
+          alert('Cadastrado com sucesso')
         }
       }catch(e){
         console.log(e)
@@ -163,7 +164,7 @@ export default {
             <div class="row">
               <div class="col-6">
                 <label for="txt_date">Data</label>
-                <input type="text" id="txt_date" placeholder="11/12/2020" required v-model="year" />
+                <input type="text" id="txt_date" placeholder="11/12/2020" required v-model="date" />
               </div><!-- col 6 -->
               <div class="col-6">
                 <label for="txt_hour">Horario</label>
