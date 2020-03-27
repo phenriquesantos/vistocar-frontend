@@ -22,6 +22,11 @@ export default new Router({
       path: '/register',
     },
     {
+      component: () => import('./views/admin/home.vue'),
+      name: 'admin',
+      path: '/admin'
+    },
+    {
       component: () => import('./views/admin/client/list.vue'),
       name: 'admin-client-list',
       path: '/admin/client/list'

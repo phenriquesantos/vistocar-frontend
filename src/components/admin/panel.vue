@@ -1,8 +1,39 @@
 <script>
+import axios from '@/plugins/axios';
+
 import adminSidebar from './sidebar.vue';
 export default {
+
+  async created(){
+    if(localStorage.user){
+      const user = JSON.parse(localStorage.user);
+
+      console.log(user)
+      try{
+        const { data } = await axios({
+          method: 'GET',
+          url: `/user/${user.id_user}`,
+          headers: {
+            'Authorization': `Bearer ${user.jwt}`
+          }
+        });
+
+        this.user = data;
+      }catch(e){
+        delete localStorage.user;
+        this.$router.push('/login');
+      }
+    }
+  },
+
   components: {
     'admin-sidebar': adminSidebar
+  },
+
+  data(){
+    return {
+      user: undefined
+    }
   }
 }
 </script>

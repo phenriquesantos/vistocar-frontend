@@ -1,15 +1,82 @@
 <script>
+import axios from '@/plugins/axios';
+
+import error from '@/components/common/error.vue';
 import pages from '@/components/common/pages.vue';
+
 export default {
   components: {
-    'page-default': pages
+    'page-default': pages,
+    'error': error
   },
 
+  async created(){
+    if(localStorage.user){
+      const user = JSON.parse(localStorage.user);
+
+      console.log(user)
+      try{
+        const { data } = await axios({
+          method: 'GET',
+          url: `/user/${user.id_user}`,
+          headers: {
+            'Authorization': `Bearer ${user.jwt}`
+          }
+        });
+
+        if(data){
+          this.$router.push('/admin');
+        }
+
+      }catch(e){
+        console.log(e);
+      }
+    }
+  },
+
+  data(){
+    return {
+      email: '',
+      password: '',
+      error: []
+    }
+  },
+  
   head: {
     title:{
       inner: 'Vistocar - Login'
     }
   },
+
+  methods: {
+    async auth(e){
+      e.preventDefault();
+      try{
+        const { data } = await axios({
+          method: "POST",
+          url: "/login",
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        });
+
+        localStorage.user = JSON.stringify(data);
+        this.router.push('/admin')
+      }catch(e) {
+        if(e.message == 'Request failed with status code 400'){
+          this.error.push({
+            message: "E-mail e/ou senha invalido."
+          });
+        }else{
+          this.error.push({
+            message: "Erro ao fazer login. Tente novamente mais tarde!"
+          })
+        }
+      }
+    }
+  },
+  
   name: 'login',
 }
 </script>
@@ -17,15 +84,24 @@ export default {
 <template>
   <page-default>
     <div class="login">
-      <form class="login__form">
+      <form class="login__form" v-on:submit="auth($event)">
         <figure class="login__form__image">
           <img src="../assets/images/vistocar-logo.png" alt="Grupo VistoCar" title="VistoCar" />
         </figure>
-        <label for="txt_login">Login</label>
-        <input type="text" name="login" id="txt_login" placeholder="Login" required />
+
+        <div class="login__form__error">
+          <error
+            v-bind:error="erro.message"
+            v-bind:key="i"
+            v-for="(erro, i) in error"
+          />
+        </div>
+
+        <label for="txt_email">E-mail</label>
+        <input type="email" name="email" id="txt_email" placeholder="E-mail" required v-model="email" />
 
         <label for="txt_pass">Senha</label>
-        <input type="password" name="pass" placeholder="Senha" id="txt_pass" />
+        <input type="password" name="pass" placeholder="Senha" id="txt_pass" required v-model="password" />
 
         <a href="#">Esqueceu a senha ?</a>
         <button type="submit">Login</button>

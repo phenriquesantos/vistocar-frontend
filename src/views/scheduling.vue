@@ -1,6 +1,20 @@
 <script>
+// import authVerify from '@/functions/auth-verify';
+// import axios from '@/plugins/axios';
+
 import page from '@/components/common/pages.vue';
+
+
 export default {
+
+  // async created(){
+  //   try{
+
+  //   }catch(e){
+  //     this.$router.push('/login')
+  //   }
+  // },
+  
   components: {
     'page-default': page
   }
