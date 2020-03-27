@@ -35,7 +35,8 @@ export default {
     async sendForm(e){
       e.preventDefault();
       try{
-        // if()
+        const date = this.date.split('/');
+        const dateFormat = `${date[2]}-${date[1]}-${date[0]}`
         const { data } = await axios({
           method: 'POST',
           url: '/schedule',
@@ -43,7 +44,7 @@ export default {
             status: 'new',
             created_at: Date.now(),
             client_id: 1,
-            date: this.date,
+            date: dateFormat,
             time: this.hour,
             vehicle_board: this.board,
             vehicle_brand: this.brand,
