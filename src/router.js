@@ -27,14 +27,29 @@ export default new Router({
       path: '/admin'
     },
     {
+      component: () => import('./views/admin/report/form.vue'),
+      name: 'admin-report-form',
+      path: '/admin/report/new'
+    },
+    {
       component: () => import('./views/admin/client/list.vue'),
       name: 'admin-client-list',
       path: '/admin/client/list'
     },
     {
-      component: () => import('./views/admin/report/form.vue'),
-      name: 'admin-report-form',
-      path: '/admin/report/new'
+      component: () => import('./views/admin/client/form.vue'),
+      name: 'admin-client-form-new',
+      path: '/admin/client/new'
+    },
+    {
+      component: () => import('./views/admin/client/form.vue'),
+      name: 'admin-client-form-edit',
+      path: '/admin/client/edit/:id'
+    },
+    {
+      component: () => import('./views/admin/client/delete.vue'),
+      name: 'admin-client-delet',
+      path: '/admin/client/delete/:id'
     }
   ]
 })

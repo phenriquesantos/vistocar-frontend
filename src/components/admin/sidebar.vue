@@ -11,16 +11,16 @@ export default {
     </figure>
     <ul class="sidebar__list">
       <li class="sidebar__list__item">
-        <a href="#">
+        <router-link to="/admin">
           <v-icon class="sidebar__list__item__icon">mdi-home</v-icon>
           Home
-        </a>
+        </router-link>
       </li><!-- side bar list item -->
       <li class="sidebar__list__item">
-        <a href="#">
+        <router-link to="/admin/client/list">
           <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
           Clientes
-        </a>
+        </router-link>
       </li>
       <li class="sidebar__list__item">
         <a href="#">

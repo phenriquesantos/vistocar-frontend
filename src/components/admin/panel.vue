@@ -7,8 +7,6 @@ export default {
   async created(){
     if(localStorage.user){
       const user = JSON.parse(localStorage.user);
-
-      console.log(user)
       try{
         const { data } = await axios({
           method: 'GET',
