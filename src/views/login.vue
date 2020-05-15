@@ -41,7 +41,7 @@ export default {
       error: []
     }
   },
-  
+
   head: {
     title:{
       inner: 'Vistocar - Login'
@@ -77,7 +77,7 @@ export default {
       }
     }
   },
-  
+
   name: 'login',
 }
 </script>
@@ -107,6 +107,7 @@ export default {
         <a href="#">Esqueceu a senha ?</a>
         <button type="submit">Login</button>
       </form>
+      <a href="/register"><button>Cadastrar</button></a>
     </div>
   </page-default>
 </template>
@@ -133,7 +134,7 @@ export default {
         display: block;
         clear: both;
       }
-      
+
       &__image{
         text-align: center;
         margin-bottom: 20px;
