@@ -1,8 +1,11 @@
 <script>
 import pages from '@/components/common/pages.vue';
+import TheMask from 'vue-the-mask';
+
 export default {
   components: {
-    'page-default': pages
+    'page-default': pages,
+    'the-mask': TheMask
   }
 }
 </script>

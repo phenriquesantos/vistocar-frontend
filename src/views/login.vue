@@ -65,14 +65,14 @@ export default {
         this.$router.push('/admin')
       }catch(e) {
         if(e.message == 'Request failed with status code 400'){
-          this.error.push({
+          this.error = [{
             message: "E-mail e/ou senha invalido."
-          });
+          }];
         }else{
           console.log(e);
-          this.error.push({
+          this.error = [{
             message: "Erro ao fazer login. Tente novamente mais tarde!"
-          })
+          }];
         }
       }
     }
