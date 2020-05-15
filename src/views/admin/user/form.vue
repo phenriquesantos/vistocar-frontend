@@ -26,6 +26,7 @@ export default {
       firstName: '',
       lastName: '',
       email: '',
+      role: '',
       password: '',
       user: undefined
     }
@@ -45,6 +46,7 @@ export default {
         if(data){
           this.firstName = data.first_name;
           this.lastName = data.last_name;
+          this.role = data.role;
           this.email = data.email;
         }
       }catch(e){
@@ -64,6 +66,7 @@ export default {
             'first_name': this.firstName,
             'last_name': this.lastName,
             'email': this.email,
+            'role': this.role,
             'active': true,
             'password': this.password,
           }
@@ -83,6 +86,7 @@ export default {
           'first_name': this.firstName,
           'last_name': this.lastName,
           'email': this.email,
+          'role': this.role,
           'active': true,
           'password': this.password,
         }
@@ -140,6 +144,13 @@ export default {
             <label for="txt_email">E-mail</label>
             <input type="email" name="email" placeholder="E-mail" id="txt_email" required v-model="email" />
           </div><!-- col md 6 -->
+          <div class="col-md-4">
+            <label for="sel_rg-uf">Função</label>
+            <select name="role" id="role" v-model="user.role">
+              <option value="client">Cliente</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div><!-- col md 1 -->
         </div><!-- row -->
         <div class="row">
           <div class="col-md-6">
