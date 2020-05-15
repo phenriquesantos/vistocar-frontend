@@ -13,31 +13,30 @@ export default {
     }
 
     if(this.$route.params.id){
-      this.clientId = this.$route.params.id;
+      this.userId = this.$route.params.id;
 
-      await this.getClient();
+      await this.getUser();
     }
 
   },
 
   data(){
     return {
-      clientId: undefined,
+      userId: undefined,
       firstName: '',
       lastName: '',
-      cpf: '',
-      rgNumber: '',
-      rgUf: '',
       email: '',
+      role: '',
+      password: '',
       user: undefined
     }
   },
 
   methods: {
-    async getClient(){
+    async getUser(){
       try{
         const { data } = await axios({
-          url: `/client/${this.clientId}`,
+          url: `/user/${this.userId}`,
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${this.user.jwt}`
@@ -47,10 +46,7 @@ export default {
         if(data){
           this.firstName = data.first_name;
           this.lastName = data.last_name;
-          this.cpf = data.cpf;
-          this.phone = data.phone;
-          this.rgNumber = data.rg_number;
-          this.rgUf = data.rg_uf;
+          this.role = data.role;
           this.email = data.email;
         }
       }catch(e){
@@ -58,57 +54,57 @@ export default {
       }
     },
 
-    async postClient(){
+    async postUser(){
       try{
         const { data } = await axios({
           method: 'POST',
           headers:{
             // 'Authorization': `Bearer ${this.user.jwt}`
           },
-          url: '/client',
+          url: '/user',
           data: {
             'first_name': this.firstName,
             'last_name': this.lastName,
-            'cpf': this.cpf,
-            'rg_number': this.rgNumber,
-            'rg_uf': this.rgUf,
             'email': this.email,
-            'phone': this.phone,
+            'role': this.role,
             'active': true,
+            'password': this.password,
           }
         });
 
         if(data){
-          this.$router.push('/admin/client/list');
+          this.$router.push('/admin/user/list');
         }
       }catch(e){
         console.log(`ERROR: ${e.code} - ${e.message}`);
       }
     },
 
-    async putClient(){
+    async putUser(){
       try{
         const body = {
           'first_name': this.firstName,
           'last_name': this.lastName,
-          'cpf': this.cpf,
-          'rg_number': this.rgNumber,
-          'rg_uf': this.rgUf,
           'email': this.email,
-          'phone': this.phone,
+          'role': this.role,
           'active': true,
+          'password': this.password,
+        }
+
+        if(body.password == ''){
+          body.password = undefined;
         }
 
         await axios({
           method: 'PUT',
-          url: `/client/${this.clientId}`,
+          url: `/user/${this.userId}`,
           headers: {
             'Authorization': `Bearer ${this.user.jwt}`
           },
           data: body
         });
 
-        this.$router.push('/admin/client/list');
+        this.$router.push('/admin/user/list');
       }catch(e){
         console.log(`ERROR: ${e.code} - ${e.message}`);
       }
@@ -116,10 +112,10 @@ export default {
 
     async sendForm(event){
       event.preventDefault();
-      if(this.clientId){
-        await this.putClient();
+      if(this.userId){
+        await this.putUser();
       }else{
-        await this.postClient();
+        await this.postUser();
       }
     }
   },
@@ -129,7 +125,7 @@ export default {
 <template>
     <admin-panel>
       <form class="form-admin" v-on:submit="sendForm($event)">
-        <h1 class="form-admin__title">Novo Cliente</h1>
+        <h1 class="form-admin__title">Novo Usuário</h1>
 
         <div class="row">
           <div class="col-md-5">
@@ -143,61 +139,29 @@ export default {
         </div><!-- row -->
 
         <div class="row">
-          <div class="col-md-6">
-            <label for="txt_phone">Celular</label>
-            <input type="text" name="phone" placeholder="Celular" id="txt_phone" v-model="phone" />
-          </div><!-- col md 6 -->
 
           <div class="col-md-6">
             <label for="txt_email">E-mail</label>
             <input type="email" name="email" placeholder="E-mail" id="txt_email" required v-model="email" />
           </div><!-- col md 6 -->
-        </div><!-- row -->
-
-        <div class="row">
-          <div class="col-md-6">
-            <label for="txt_cpf">CPF</label>
-            <input type="text" name="cpf" placeholder="CPF" id="txt_cpf" required v-model="cpf" />
-          </div><!-- col md 6 -->
-
           <div class="col-md-4">
-            <label for="txt_rg-number">Número do RG</label>
-            <input type="text" name="rg-number" placeholder="Número do RG" id="txt_rg-number" v-model="rgNumber" />
-          </div><!-- col md 5 -->
-          <div class="col-md-2">
-            <label for="sel_rg-uf">UF do RG</label>
-            <select name="rg-uf" id="sel_rg-uf" v-model="rgUf">
-              <option value="default" disabled selected>--</option>
-              <option value="AC">AC</option>
-              <option value="AL">AL</option>
-              <option value="AP">AP</option>
-              <option value="AM">AM</option>
-              <option value="BA">BA</option>
-              <option value="CE">CE</option>
-              <option value="DF">DF</option>
-              <option value="ES">ES</option>
-              <option value="GO">GO</option>
-              <option value="MA">MA</option>
-              <option value="MT">MT</option>
-              <option value="MS">MS</option>
-              <option value="MG">MG</option>
-              <option value="PA">PA</option>
-              <option value="PB">PB</option>
-              <option value="PR">PR</option>
-              <option value="PE">PE</option>
-              <option value="PI">PI</option>
-              <option value="RJ">RJ</option>
-              <option value="RN">RN</option>
-              <option value="RS">RS</option>
-              <option value="RO">RO</option>
-              <option value="RR">RR</option>
-              <option value="SC">SC</option>
-              <option value="SP">SP</option>
-              <option value="SE">SE</option>
-              <option value="TO">TO</option>
+            <label for="sel_rg-uf">Função</label>
+            <select name="role" id="role" v-model="user.role">
+              <option value="client">Cliente</option>
+              <option value="admin">Administrador</option>
             </select>
           </div><!-- col md 1 -->
         </div><!-- row -->
+        <div class="row">
+          <div class="col-md-6">
+            <label for="txt_pass">Senha</label>
+            <input type="password" name="pass" placeholder="Senha" id="txt_pass" v-model="password" :required="!userId != ''" />
+          </div><!-- col md 6 -->
+          <div class="col-md-6">
+            <label for="txt_r-pass">Repita a senha</label>
+            <input type="password" name="pass" placeholder="Repita a senha" id="txt_r-pass" :required="!userId != ''" />
+          </div>
+        </div>
 
         <button class="form-admin__button" type="submit">Cadastrar</button>
       </form>
