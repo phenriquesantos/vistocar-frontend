@@ -38,36 +38,6 @@ export default {
       <itens-client v-else />
 
       <li class="sidebar__list__item">
-        <router-link to="/admin/client/list">
-          <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
-          Clientes
-        </router-link>
-      </li>
-      <li class="sidebar__list__item">
-        <router-link to="/admin/user/list">
-          <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
-          Usuários
-        </router-link>
-      </li>
-      <li class="sidebar__list__item">
-        <router-link to="/scheduling">
-          <v-icon class="sidebar__list__item__icon">mdi-calendar-range</v-icon>
-          Agendamento
-        </router-link>
-      </li>
-      <li class="sidebar__list__item">
-        <router-link to="/admin/scheduling/list">
-          <v-icon class="sidebar__list__item__icon">mdi-calendar-range</v-icon>
-          Agendamentos
-        </router-link>
-      </li>
-      <li class="sidebar__list__item">
-        <a href="#">
-          <v-icon class="sidebar__list__item__icon">mdi-file-document-outline</v-icon>
-          Laudos
-        </a>
-      </li>
-      <li class="sidebar__list__item">
         <a href="#" v-on:click="emitLogout">
         <v-icon class="sidebar__list__item__icon">mdi-exit-to-app</v-icon>
           Sair

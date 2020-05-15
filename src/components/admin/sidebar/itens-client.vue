@@ -8,7 +8,8 @@ export default {
 
     created(){
         const user = JSON.parse(localStorage.user);
-        this.userId = user.id
+        // console.log(user);
+        this.userId = user.id_user
     },
 
     data(){

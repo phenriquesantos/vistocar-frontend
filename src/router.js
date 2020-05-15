@@ -90,6 +90,16 @@ export default new Router({
       component: () => import('./views/admin/scheduling/delete.vue'),
       name: 'admin-scheduling-delet',
       path: '/admin/scheduling/delete/:id'
+    },
+    {
+      component: () => import('./views/admin/report/list.vue'),
+      name: 'admin-repot-list',
+      path: '/admin/report/list'
+    },
+    {
+      component: () => import('./views/admin/report/form.vue'),
+      name: 'admin-repot-edit',
+      path: '/admin/report/edit/:id'
     }
   ]
 })
