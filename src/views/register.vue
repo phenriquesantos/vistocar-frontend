@@ -13,7 +13,7 @@ export default {
     <div class="register">
       <div class="container">
         <form action="" class="register__form">
-        <h1 class="register__form__title">Cadastro</h1>
+        <h1 class="register__form__title">Cadastro de Usuário</h1>
           <div class="row">
             <div class="col-md-5">
               <label for="txt_first-name">Nome</label>
@@ -117,7 +117,7 @@ export default {
       display: block;
       clear: both;
     }
-    
+
     &__title{
       margin-bottom: 35px;
       font-weight: bold;
