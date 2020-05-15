@@ -29,10 +29,16 @@ export default {
         </router-link>
       </li>
       <li class="sidebar__list__item">
-        <a href="#">
+        <router-link to="/scheduling">
+          <v-icon class="sidebar__list__item__icon">mdi-calendar-range</v-icon>
+          Agendamento
+        </router-link>
+      </li>
+      <li class="sidebar__list__item">
+        <router-link to="/admin/scheduling/list">
           <v-icon class="sidebar__list__item__icon">mdi-calendar-range</v-icon>
           Agendamentos
-        </a>
+        </router-link>
       </li>
       <li class="sidebar__list__item">
         <a href="#">

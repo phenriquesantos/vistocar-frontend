@@ -70,6 +70,26 @@ export default new Router({
       component: () => import('./views/admin/user/delete.vue'),
       name: 'admin-user-delet',
       path: '/admin/user/delete/:id'
+    },
+    {
+      component: () => import('./views/admin/scheduling/list.vue'),
+      name: 'admin-scheduling-list',
+      path: '/admin/scheduling/list'
+    },
+    {
+      component: () => import('./views/admin/scheduling/form.vue'),
+      name: 'admin-scheduling-form-new',
+      path: '/admin/scheduling/new'
+    },
+    {
+      component: () => import('./views/admin/scheduling/form.vue'),
+      name: 'admin-scheduling-form-edit',
+      path: '/admin/scheduling/edit/:id'
+    },
+    {
+      component: () => import('./views/admin/scheduling/delete.vue'),
+      name: 'admin-scheduling-delet',
+      path: '/admin/scheduling/delete/:id'
     }
   ]
 })
