@@ -100,6 +100,11 @@ export default new Router({
       component: () => import('./views/admin/report/form.vue'),
       name: 'admin-repot-edit',
       path: '/admin/report/edit/:id'
+    },
+    {
+      component: () => import('./views/admin/report/delete.vue'),
+      name: 'admin-repot-delete',
+      path: '/admin/report/delete/:id'
     }
   ]
 })

@@ -21,7 +21,7 @@ export default {
     async deleteReport() {
       try {
         await axios({
-          url: `/report/${this.clientId}`,
+          url: `/report/${this.reportId}`,
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${this.user.jwt}`

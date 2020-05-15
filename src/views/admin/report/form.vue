@@ -66,7 +66,7 @@ export default {
             Authorization: `Bearer ${this.user.jwt}`
           },
           data: {
-            status: 1,
+            status: this.status,
             vehicle_id: this.vehicleId,
             client_id: this.clientId,
             description: this.description
@@ -83,23 +83,21 @@ export default {
 
     async putReport() {
       try {
-        const { data } = await axios({
+        await axios({
           url: `/report/${this.reportId}`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${this.user.jwt}`
           },
           data: {
-            status: 'Aprovado',
+            status: this.status,
             vehicle_id: this.vehicleId,
             client_id: this.clientId,
             description: this.description
           }
         });
 
-        if (data) {
-          this.$router.push("/admin/report/list");
-        }
+        this.$router.push("/admin/report/list");
       } catch (e) {
         console.log(`ERROR ${e.code} - ${e.message}`);
       }
@@ -155,7 +153,10 @@ export default {
       <div class="row">
         <div class="col-md-6">
           <label for="sel_status">Status</label>
-          <select name="" id="sel_status" v-model="status"></select>
+          <select name="" id="sel_status" v-model="status">
+            <option value="Aprovado">Aprovado</option>
+            <option value="Reprovado">Reprovado</option>
+          </select>
         </div>
       </div>
 

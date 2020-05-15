@@ -2,9 +2,12 @@
 import axios from '@/plugins/axios';
 import adminPanel from '@/components/admin/panel.vue';
 
+import { TheMask } from 'vue-the-mask';
+
 export default {
   components: {
     'admin-panel': adminPanel,
+    'the-mask': TheMask
   },
 
   async created(){
@@ -56,6 +59,10 @@ export default {
       }catch(e){
         console.log(`ERROR ${e.code} - ${e.message}`);
       }
+    },
+
+    getAvaliableHours() {
+
     },
 
     async postScheduling(){
@@ -213,11 +220,11 @@ export default {
           <div class="row">
             <div class="col-6">
               <label for="txt_board">Placa</label>
-              <input type="text" name="board" id="txt_board" placeholder="Placa do veículo" required v-model="board" />
+              <the-mask type="text" name="board" id="txt_board" placeholder="Placa do veículo" required v-model="board" v-bind:mask="['SSS-####']" />
             </div>
             <div class="col-6">
               <label for="txt_year">Ano</label>
-              <input type="text" name="year" id="txt_year" placeholder="Ano" required v-model="year" />
+              <the-mask type="text" name="year" id="txt_year" placeholder="Ano" required v-model="year" v-bind:mask="['####']" />
             </div>
           </div>
         </fieldset>
@@ -228,11 +235,11 @@ export default {
           <div class="row">
             <div class="col-6">
               <label for="txt_date">Data</label>
-              <input type="text" id="txt_date" placeholder="11-12-2020" required v-model="date" />
+              <the-mask type="text" id="txt_date" placeholder="11/12/2020" required v-model="date" v-bind:mask="['##/##/####']" />
             </div><!-- col 6 -->
             <div class="col-6">
               <label for="txt_hour">Horario</label>
-              <input type="text" id="txt_hour" placeholder="11:00" required v-model="time" />
+              <input type="text" id="txt_hour" placeholder="11:00" required v-model="time" v-bind:mask="['##:##']" />
             </div>
           </div><!-- row -->
         </fieldset>

@@ -55,7 +55,8 @@ export default {
     </div>
 
     <div class="panel__content">
-      <slot></slot>
+      <slot>
+      </slot>
     </div>
   </div>
 </template>
@@ -82,7 +83,7 @@ export default {
     // background: green;
     width: 80%;
     margin-left: 20%;
-    height: 100vh;
+    min-height: 100vh;
     padding: 50px 30px;
   }
 }
