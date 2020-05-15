@@ -140,7 +140,7 @@ export default {
           <div class="row">
             <div class="col-6">
               <label for="txt_board">Cliente</label>
-              <input type="text" name="client_id" id="client_id" placeholder="ID do cliente" required v-model="board" />
+              <input type="text" name="client_id" id="client_id" placeholder="ID do cliente" required v-model="client_id" />
             </div>
           </div>
           <div class="row">
@@ -228,11 +228,11 @@ export default {
           <div class="row">
             <div class="col-6">
               <label for="txt_date">Data</label>
-              <input type="text" id="txt_date" placeholder="11/12/2020" required v-model="date" />
+              <input type="text" id="txt_date" placeholder="11-12-2020" required v-model="date" />
             </div><!-- col 6 -->
             <div class="col-6">
               <label for="txt_hour">Horario</label>
-              <input type="text" id="txt_hour" placeholder="11:00" required v-model="hour" />
+              <input type="text" id="txt_hour" placeholder="11:00" required v-model="time" />
             </div>
           </div><!-- row -->
         </fieldset>
