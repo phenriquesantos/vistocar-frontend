@@ -25,9 +25,6 @@ export default {
       userId: undefined,
       firstName: '',
       lastName: '',
-      cpf: '',
-      rgNumber: '',
-      rgUf: '',
       email: '',
       password: '',
       user: undefined
@@ -48,9 +45,6 @@ export default {
         if(data){
           this.firstName = data.first_name;
           this.lastName = data.last_name;
-          this.cpf = data.cpf;
-          this.rgNumber = data.rg_number;
-          this.rgUf = data.rg_uf;
           this.email = data.email;
         }
       }catch(e){
@@ -69,9 +63,6 @@ export default {
           data: {
             'first_name': this.firstName,
             'last_name': this.lastName,
-            'cpf': this.cpf,
-            'rg_number': this.rgNumber,
-            'rg_uf': this.rgUf,
             'email': this.email,
             'active': true,
             'password': this.password,
@@ -91,9 +82,6 @@ export default {
         const body = {
           'first_name': this.firstName,
           'last_name': this.lastName,
-          'cpf': this.cpf,
-          'rg_number': this.rgNumber,
-          'rg_uf': this.rgUf,
           'email': this.email,
           'active': true,
           'password': this.password,
@@ -147,62 +135,12 @@ export default {
         </div><!-- row -->
 
         <div class="row">
-          <div class="col-md-6">
-            <label for="txt_phone">Celular</label>
-            <input type="text" name="phone" placeholder="Celular" id="txt_phone" />
-          </div><!-- col md 6 -->
 
           <div class="col-md-6">
             <label for="txt_email">E-mail</label>
             <input type="email" name="email" placeholder="E-mail" id="txt_email" required v-model="email" />
           </div><!-- col md 6 -->
         </div><!-- row -->
-
-        <div class="row">
-          <div class="col-md-6">
-            <label for="txt_cpf">CPF</label>
-            <input type="text" name="cpf" placeholder="CPF" id="txt_cpf" required v-model="cpf" />
-          </div><!-- col md 6 -->
-
-          <div class="col-md-4">
-            <label for="txt_rg-number">Número do RG</label>
-            <input type="text" name="rg-number" placeholder="Número do RG" id="txt_rg-number" v-model="rgNumber" />
-          </div><!-- col md 5 -->
-          <div class="col-md-2">
-            <label for="sel_rg-uf">UF do RG</label>
-            <select name="rg-uf" id="sel_rg-uf" v-model="rgUf">
-              <option value="default" disabled selected>--</option>
-              <option value="AC">AC</option>
-              <option value="AL">AL</option>
-              <option value="AP">AP</option>
-              <option value="AM">AM</option>
-              <option value="BA">BA</option>
-              <option value="CE">CE</option>
-              <option value="DF">DF</option>
-              <option value="ES">ES</option>
-              <option value="GO">GO</option>
-              <option value="MA">MA</option>
-              <option value="MT">MT</option>
-              <option value="MS">MS</option>
-              <option value="MG">MG</option>
-              <option value="PA">PA</option>
-              <option value="PB">PB</option>
-              <option value="PR">PR</option>
-              <option value="PE">PE</option>
-              <option value="PI">PI</option>
-              <option value="RJ">RJ</option>
-              <option value="RN">RN</option>
-              <option value="RS">RS</option>
-              <option value="RO">RO</option>
-              <option value="RR">RR</option>
-              <option value="SC">SC</option>
-              <option value="SP">SP</option>
-              <option value="SE">SE</option>
-              <option value="TO">TO</option>
-            </select>
-          </div><!-- col md 1 -->
-        </div><!-- row -->
-
         <div class="row">
           <div class="col-md-6">
             <label for="txt_pass">Senha</label>
