@@ -19,7 +19,7 @@ export default {
     }
 
   },
-  
+
   data(){
     return {
       clientId: undefined,
@@ -29,7 +29,6 @@ export default {
       rgNumber: '',
       rgUf: '',
       email: '',
-      password: '',
       user: undefined
     }
   },
@@ -41,7 +40,7 @@ export default {
           url: `/client/${this.clientId}`,
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${this.user.jwt}`           
+            'Authorization': `Bearer ${this.user.jwt}`
           }
         });
 
@@ -49,6 +48,7 @@ export default {
           this.firstName = data.first_name;
           this.lastName = data.last_name;
           this.cpf = data.cpf;
+          this.phone = data.phone;
           this.rgNumber = data.rg_number;
           this.rgUf = data.rg_uf;
           this.email = data.email;
@@ -73,8 +73,8 @@ export default {
             'rg_number': this.rgNumber,
             'rg_uf': this.rgUf,
             'email': this.email,
+            'phone': this.phone,
             'active': true,
-            'password': this.password,
           }
         });
 
@@ -95,12 +95,8 @@ export default {
           'rg_number': this.rgNumber,
           'rg_uf': this.rgUf,
           'email': this.email,
+          'phone': this.phone,
           'active': true,
-          'password': this.password,
-        }
-
-        if(body.password == ''){
-          body.password = undefined;
         }
 
         await axios({
@@ -149,7 +145,7 @@ export default {
         <div class="row">
           <div class="col-md-6">
             <label for="txt_phone">Celular</label>
-            <input type="text" name="phone" placeholder="Celular" id="txt_phone" />
+            <input type="text" name="phone" placeholder="Celular" id="txt_phone" v-model="phone" />
           </div><!-- col md 6 -->
 
           <div class="col-md-6">
@@ -203,35 +199,24 @@ export default {
           </div><!-- col md 1 -->
         </div><!-- row -->
 
-        <div class="row">
-          <div class="col-md-6">
-            <label for="txt_pass">Senha</label>
-            <input type="password" name="pass" placeholder="Senha" id="txt_pass" v-model="password" :required="!clientId != ''" />
-          </div><!-- col md 6 -->
-          <div class="col-md-6">
-            <label for="txt_r-pass">Repita a senha</label>
-            <input type="password" name="pass" placeholder="Repita a senha" id="txt_r-pass" :required="!clientId != ''" />
-          </div>
-        </div>
-
         <button class="form-admin__button" type="submit">Cadastrar</button>
       </form>
     </admin-panel>
 </template>
 
 <style lang="less" scoped>
-  
+
 .form-admin{
   background: white;
   padding: 20px 30px;
   border-radius: 5px;
-  
+
   &::after{
     content: ' ';
     display: block;
     clear: both;
   }
-  
+
   &__title{
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;

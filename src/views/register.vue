@@ -27,6 +27,7 @@ export default {
         rgNumber: '',
         rgUf: '',
         email: '',
+        phone: '',
         password: '',
         repeatPassword: '',
       },
@@ -41,7 +42,7 @@ export default {
       if(this.user.password != this.user.repeatPassword){
         this.error = 'Senhas não coincidem';
       }
-      
+
       try{
         await this.createUser();
         await this.createClient();
@@ -79,8 +80,8 @@ export default {
           'rg_number': this.user.rgNumber,
           'rg_uf': this.user.rgUf,
           'email': this.user.email,
+          'phone': this.user.phone,
           'active': true,
-          'password': this.user.password,
         }
       });
     }
@@ -115,7 +116,7 @@ export default {
           <div class="row">
             <div class="col-md-6">
               <label for="txt_phone">Celular</label>
-              <the-mask type="text" name="phone" placeholder="Celular" id="txt_phone" required v-bind:mask="['(##) #.####-####']" />
+              <the-mask type="text" name="phone" placeholder="Celular" id="txt_phone" required v-bind:mask="['(##) #.####-####']" v-model="user.phone" />
             </div><!-- col md 6 -->
 
             <div class="col-md-6">
