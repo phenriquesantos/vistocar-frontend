@@ -25,6 +25,11 @@ export default {
         <v-icon class="item__icon">mdi-file-document-outline</v-icon>Laudos
       </router-link>
     </li>
+    <li class="item">
+      <router-link to="/admin/user/list">
+        <v-icon class="item__icon">mdi-account</v-icon>Usuarios
+      </router-link>
+    </li>
   </fragment>
 </template>
 

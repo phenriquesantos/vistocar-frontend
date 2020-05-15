@@ -2,9 +2,12 @@
 import axios from '@/plugins/axios';
 import adminPanel from '@/components/admin/panel.vue';
 
+import { TheMask } from 'vue-the-mask';
+
 export default {
   components: {
     'admin-panel': adminPanel,
+    'the-mask': TheMask
   },
 
   async created(){
@@ -145,7 +148,7 @@ export default {
         <div class="row">
           <div class="col-md-6">
             <label for="txt_phone">Celular</label>
-            <input type="text" name="phone" placeholder="Celular" id="txt_phone" v-model="phone" />
+            <the-mask type="text" name="phone" placeholder="Celular" id="txt_phone" v-model="phone" v-bind:mask="['(##) #.####-####']" />
           </div><!-- col md 6 -->
 
           <div class="col-md-6">
@@ -157,12 +160,12 @@ export default {
         <div class="row">
           <div class="col-md-6">
             <label for="txt_cpf">CPF</label>
-            <input type="text" name="cpf" placeholder="CPF" id="txt_cpf" required v-model="cpf" />
+            <the-mask type="text" name="cpf" placeholder="CPF" id="txt_cpf" required v-model="cpf" v-bind:mask="['###.###.###.-##']" />
           </div><!-- col md 6 -->
 
           <div class="col-md-4">
             <label for="txt_rg-number">Número do RG</label>
-            <input type="text" name="rg-number" placeholder="Número do RG" id="txt_rg-number" v-model="rgNumber" />
+            <the-mask type="text" name="rg-number" placeholder="Número do RG" id="txt_rg-number" v-model="rgNumber" v-bind:mask="['##.###.###-#']" />
           </div><!-- col md 5 -->
           <div class="col-md-2">
             <label for="sel_rg-uf">UF do RG</label>

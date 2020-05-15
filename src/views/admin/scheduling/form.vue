@@ -25,6 +25,7 @@ export default {
 
   data(){
     return {
+      avaliableHours: [],
       schedulingId: undefined,
       date: '',
       time: '',
@@ -61,8 +62,22 @@ export default {
       }
     },
 
-    getAvaliableHours() {
+    async getAvaliableHours() {
+      try{
+        const date = this.date.split('/').join('-');
 
+        const { data } = await axios({
+          url: `/available_times/${date}`,
+          method: 'GET',
+          headers:{
+            'Authorization': `Bearer ${this.user.jwt}`
+          },
+        });
+
+        this.avaliableHours = data;
+      }catch(e){
+        console.log(`ERROR ${e.code} = ${e.message}`)
+      }
     },
 
     async postScheduling(){
@@ -235,11 +250,13 @@ export default {
           <div class="row">
             <div class="col-6">
               <label for="txt_date">Data</label>
-              <the-mask type="text" id="txt_date" placeholder="11/12/2020" required v-model="date" v-bind:mask="['##/##/####']" />
+              <the-mask type="text" id="txt_date" placeholder="11/12/2020" required v-model="date" v-bind:mask="['##/##/####']" v-on:change.native="getAvaliableHours()" v-bind:masked="true" />
             </div><!-- col 6 -->
             <div class="col-6">
-              <label for="txt_hour">Horario</label>
-              <input type="text" id="txt_hour" placeholder="11:00" required v-model="time" v-bind:mask="['##:##']" />
+              <label for="sel_hour">Horario</label>
+              <select name="" id="sel_hour" v-model="time">
+                <option v-for="(hour, i) in avaliableHours" v-bind:key="i" v-bind:value="hour" >{{ hour }}</option>
+              </select>
             </div>
           </div><!-- row -->
         </fieldset>

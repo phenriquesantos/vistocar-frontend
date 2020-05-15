@@ -1,58 +1,59 @@
 <script>
-import adminPanel from '@/components/admin/panel.vue';
-import axios from '../../../plugins/axios'
+import adminPanel from "@/components/admin/panel.vue";
+import axios from "../../../plugins/axios";
+
 
 export default {
   components: {
-    'admin-panel': adminPanel
+    "admin-panel": adminPanel,
   },
 
-  async created(){
-    try{
-      if(localStorage.user){
+  async created() {
+    try {
+      if (localStorage.user) {
         this.user = JSON.parse(localStorage.user);
         await this.getClientList();
       }
-    }catch(e){
+    } catch (e) {
       console.log(`ERROR ${e.code} - ${e.message}`);
     }
   },
 
-  data(){
-    return{
+  data() {
+    return {
       user: undefined,
       clients: []
-    }
+    };
   },
 
   methods: {
-    async getClientList(){
-      try{
+    async getClientList() {
+      try {
         const { data } = await axios({
-          url: '/client',
-          method: 'GET',
+          url: "/client",
+          method: "GET",
           headers: {
-            'Authorization': `Bearer ${this.user.jwt}`
+            Authorization: `Bearer ${this.user.jwt}`
           }
         });
 
-        if(data){
+        if (data) {
           // console.log(data);
           this.clients = data;
         }
-      }catch(e){
+      } catch (e) {
         console.log(`ERROR ${e.code} - ${e.message}`);
       }
     }
   }
-}
+};
 </script>
 
 <template>
   <admin-panel class="list">
     <!-- <header class="list__saerch">
 
-    </header> -->
+    </header>-->
     <div class="list__content">
       <div class="list__content__button">
         <router-link to="/admin/client/new">Cadastrar Cliente</router-link>
@@ -68,13 +69,19 @@ export default {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(client, i) in clients"  v-bind:key="i">
+          <tr v-for="(client, i) in clients" v-bind:key="i">
             <td>{{ client.id }}</td>
             <td>{{ client.name }}</td>
             <td>{{ client.email }}</td>
             <td class="list__content__table__buttons">
-              <router-link v-bind:to="`/admin/client/edit/${client.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--primary">Editar</router-link>
-              <router-link v-bind:to="`/admin/client/delete/${client.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--danger">Excluir</router-link>
+              <router-link
+                v-bind:to="`/admin/client/edit/${client.id}`"
+                class="list__content__table__buttons__item list__content__table__buttons__item--primary"
+              >Editar</router-link>
+              <router-link
+                v-bind:to="`/admin/client/delete/${client.id}`"
+                class="list__content__table__buttons__item list__content__table__buttons__item--danger"
+              >Excluir</router-link>
             </td>
           </tr>
         </tbody>
@@ -85,21 +92,21 @@ export default {
 </template>
 
 <style lang="less" scoped>
-.list{
+.list {
   // background: white;
-  &__content{
+  &__content {
     background: white;
     padding: 20px;
     border-radius: 3px;
 
-    &__button{
+    &__button {
       display: flex;
       justify-content: right;
       align-items: center;
       padding: 20px 0;
       margin-bottom: 20px;
 
-      a{
+      a {
         text-transform: uppercase;
         text-decoration: none;
         display: inline-block;
@@ -108,19 +115,19 @@ export default {
         color: #066395;
         font-weight: bold;
         border-radius: 3px;
-        transition: all .2s;
+        transition: all 0.2s;
 
-        &:hover{
-          background:#066395;
+        &:hover {
+          background: #066395;
           color: white;
         }
       }
     }
 
-    &__table{
+    &__table {
       width: 100%;
-      thead{
-        th{
+      thead {
+        th {
           background: #ddd;
           padding: 10px 5px;
           border-bottom: 1px solid #666;
@@ -128,16 +135,18 @@ export default {
         }
       }
 
-      tbody{
-        td{
+      tbody {
+        td {
           padding: 10px 5px;
+          text-align: center;
         }
       }
 
-      &__buttons{
+      &__buttons {
         display: flex;
+        justify-content: center;
 
-        &__item{
+        &__item {
           display: block;
           margin-right: 10px;
           padding: 7px 5px;
@@ -145,13 +154,13 @@ export default {
           text-decoration: none;
           text-transform: uppercase;
           font-size: 14px;
-          
-          &--primary{
-            background:#066395;
+
+          &--primary {
+            background: #066395;
             color: white;
           }
 
-          &--danger{
+          &--danger {
             color: white;
             background: #d92626;
           }
@@ -159,7 +168,7 @@ export default {
       }
     }
 
-    &__not-found{
+    &__not-found {
       text-transform: uppercase;
       text-align: center;
       font-weight: bold;

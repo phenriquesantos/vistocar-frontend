@@ -131,11 +131,13 @@ export default {
       tbody{
         td{
           padding: 10px 5px;
+          text-align: center;
         }
       }
 
       &__buttons{
         display: flex;
+        justify-content: center;
 
         &__item{
           display: block;

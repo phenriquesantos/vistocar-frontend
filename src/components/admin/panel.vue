@@ -18,7 +18,7 @@ export default {
 
         this.user = data;
 
-        if(this.user.role == 'admin'){
+        if(data.role == 'admin'){
           this.isAdmin = true;
         }
       }catch(e){
