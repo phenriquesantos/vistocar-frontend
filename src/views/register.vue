@@ -1,6 +1,6 @@
 <script>
 import pages from '@/components/common/pages.vue';
-import TheMask from 'vue-the-mask';
+import { TheMask } from 'vue-the-mask';
 
 export default {
   components: {
@@ -43,12 +43,12 @@ export default {
           <div class="row">
             <div class="col-md-6">
               <label for="txt_cpf">CPF</label>
-              <the-mask type="text" name="cpf" placeholder="CPF" id="txt_cpf" required v-bind="['###.###.###-##']" />
+              <the-mask type="text" name="cpf" placeholder="CPF" id="txt_cpf" required v-bind:mask="['###.###.###-##']" />
             </div><!-- col md 6 -->
 
             <div class="col-md-5">
               <label for="txt_rg-number">Número do RG</label>
-              <the-mask type="text" name="rg-number" placeholder="Número do RG" id="txt_rg-number" v-bind="['##.###.###-#']" />
+              <the-mask type="text" name="rg-number" placeholder="Número do RG" id="txt_rg-number" v-bind:mask="['##.###.###-#']" />
             </div><!-- col md 5 -->
             <div class="col-md-1">
               <label for="sel_rg-uf">UF do RG</label>
