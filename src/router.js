@@ -50,6 +50,26 @@ export default new Router({
       component: () => import('./views/admin/client/delete.vue'),
       name: 'admin-client-delet',
       path: '/admin/client/delete/:id'
+    },
+    {
+      component: () => import('./views/admin/user/list.vue'),
+      name: 'admin-user-list',
+      path: '/admin/user/list'
+    },
+    {
+      component: () => import('./views/admin/user/form.vue'),
+      name: 'admin-user-form-new',
+      path: '/admin/user/new'
+    },
+    {
+      component: () => import('./views/admin/user/form.vue'),
+      name: 'admin-user-form-edit',
+      path: '/admin/user/edit/:id'
+    },
+    {
+      component: () => import('./views/admin/user/delete.vue'),
+      name: 'admin-user-delet',
+      path: '/admin/user/delete/:id'
     }
   ]
 })

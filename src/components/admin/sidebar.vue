@@ -1,6 +1,6 @@
 <script>
 export default {
-  
+
 }
 </script>
 
@@ -20,6 +20,12 @@ export default {
         <router-link to="/admin/client/list">
           <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
           Clientes
+        </router-link>
+      </li>
+      <li class="sidebar__list__item">
+        <router-link to="/admin/user/list">
+          <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
+          Usuários
         </router-link>
       </li>
       <li class="sidebar__list__item">
@@ -62,7 +68,7 @@ export default {
 
   &__list{
     &__item{
-      
+
       &__icon{
         display: inline-block;
         margin-right: 10px;
