@@ -1,13 +1,30 @@
 <script>
+
+import itensAdmin from './itens-admin.vue';
+import itensClient from './itens-client.vue';
+
 export default {
-  
+  components: {
+    'itens-admin': itensAdmin,
+    'itens-client': itensClient
+  },
+
+  props: {
+    isAdmin: { type: Boolean, required: true, default: false }
+  },
+
+  methods: {
+    emitLogout(){
+      this.$emit('logout');
+    }
+  }
 }
 </script>
 
 <template>
   <aside class="sidebar">
     <figure class="sidebar__logo">
-      <img src="../../assets/images/vistocar-logo.png" alt="Vistocar" title="Vistocar" class="sidebar__logo__item">
+      <img src="../../../assets/images/vistocar-logo.png" alt="Vistocar" title="Vistocar" class="sidebar__logo__item">
     </figure>
     <ul class="sidebar__list">
       <li class="sidebar__list__item">
@@ -16,26 +33,12 @@ export default {
           Home
         </router-link>
       </li><!-- side bar list item -->
+      
+      <itens-admin v-if="isAdmin" />
+      <itens-client v-else />
+
       <li class="sidebar__list__item">
-        <router-link to="/admin/client/list">
-          <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
-          Clientes
-        </router-link>
-      </li>
-      <li class="sidebar__list__item">
-        <a href="#">
-          <v-icon class="sidebar__list__item__icon">mdi-calendar-range</v-icon>
-          Agendamentos
-        </a>
-      </li>
-      <li class="sidebar__list__item">
-        <a href="#">
-          <v-icon class="sidebar__list__item__icon">mdi-file-document-outline</v-icon>
-          Laudos
-        </a>
-      </li>
-      <li class="sidebar__list__item">
-        <a href="#">
+        <a href="#" v-on:click="emitLogout">
           <v-icon class="sidebar__list__item__icon">mdi-exit-to-app</v-icon>
           Sair
         </a>
