@@ -38,35 +38,7 @@ export default {
       <itens-client v-else />
 
       <li class="sidebar__list__item">
-<<<<<<< HEAD:src/components/admin/sidebar/sidebar.vue
         <a href="#" v-on:click="emitLogout">
-=======
-        <router-link to="/admin/client/list">
-          <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
-          Clientes
-        </router-link>
-      </li>
-      <li class="sidebar__list__item">
-        <router-link to="/admin/user/list">
-          <v-icon class="sidebar__list__item__icon">mdi-account</v-icon>
-          Usuários
-        </router-link>
-      </li>
-      <li class="sidebar__list__item">
-        <a href="#">
-          <v-icon class="sidebar__list__item__icon">mdi-calendar-range</v-icon>
-          Agendamentos
-        </a>
-      </li>
-      <li class="sidebar__list__item">
-        <a href="#">
-          <v-icon class="sidebar__list__item__icon">mdi-file-document-outline</v-icon>
-          Laudos
-        </a>
-      </li>
-      <li class="sidebar__list__item">
-        <a href="#">
->>>>>>> 9a74635bf73c2459876c572e2eedfc8b94b27e22:src/components/admin/sidebar.vue
           <v-icon class="sidebar__list__item__icon">mdi-exit-to-app</v-icon>
           Sair
         </a>
