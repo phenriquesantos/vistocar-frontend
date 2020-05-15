@@ -106,8 +106,8 @@ export default {
 
         <a href="#">Esqueceu a senha ?</a>
         <button type="submit">Login</button>
+        <router-link to="/register"><button>Cadastrar</button></router-link>
       </form>
-      <a href="/register"><button>Cadastrar</button></a>
     </div>
   </page-default>
 </template>
