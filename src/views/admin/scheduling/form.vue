@@ -228,7 +228,7 @@ export default {
           <div class="row">
             <div class="col-6">
               <label for="txt_date">Data</label>
-              <input type="text" id="txt_date" placeholder="11/12/2020" required v-model="date" />
+              <input type="text" id="txt_date" placeholder="11-12-2020" required v-model="date" />
             </div><!-- col 6 -->
             <div class="col-6">
               <label for="txt_hour">Horario</label>
