@@ -28,13 +28,23 @@ export default {
             Perfil
             </router-link>
         </li>
+        <li class="item">
+          <router-link to="/admin/scheduling/list">
+            <v-icon class="item__icon">mdi-calendar-range</v-icon>Agendamentos
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link to="/admin/report/list">
+            <v-icon class="item__icon">mdi-file-document-outline</v-icon>Laudos
+          </router-link>
+        </li>
 
     </fragment>
 </template>
 
 <style lang="less" scoped>
 .item{
-      
+
   &__icon{
     display: inline-block;
     margin-right: 10px;

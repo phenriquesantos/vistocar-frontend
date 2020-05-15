@@ -16,6 +16,11 @@ export default {
       </router-link>
     </li>
     <li class="item">
+      <router-link to="/admin/user/list">
+        <v-icon class="item__icon">mdi-account</v-icon>Usuarios
+      </router-link>
+    </li>
+    <li class="item">
       <router-link to="/admin/scheduling/list">
         <v-icon class="item__icon">mdi-calendar-range</v-icon>Agendamentos
       </router-link>
@@ -23,11 +28,6 @@ export default {
     <li class="item">
       <router-link to="/admin/report/list">
         <v-icon class="item__icon">mdi-file-document-outline</v-icon>Laudos
-      </router-link>
-    </li>
-    <li class="item">
-      <router-link to="/admin/user/list">
-        <v-icon class="item__icon">mdi-account</v-icon>Usuarios
       </router-link>
     </li>
   </fragment>
