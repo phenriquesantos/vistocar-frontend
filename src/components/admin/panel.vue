@@ -1,7 +1,7 @@
 <script>
 import axios from '@/plugins/axios';
 
-import adminSidebar from './sidebar.vue';
+import adminSidebar from './sidebar/sidebar.vue';
 export default {
 
   async created(){
@@ -17,6 +17,10 @@ export default {
         });
 
         this.user = data;
+
+        if(this.user.role == 'role'){
+          this.isAdmin = true;
+        }
       }catch(e){
         delete localStorage.user;
         this.$router.push('/login');
@@ -30,7 +34,15 @@ export default {
 
   data(){
     return {
-      user: undefined
+      user: undefined,
+      isAdmin: false
+    }
+  },
+
+  methods: {
+    logout(){
+      delete localStorage.user;
+      this.$router.push('/login')
     }
   }
 }
@@ -39,7 +51,7 @@ export default {
 <template>
   <div class="panel">
     <div class="panel__nav">
-      <admin-sidebar class="panel__nav__item" />
+      <admin-sidebar class="panel__nav__item" v-bind:isAdmin="isAdmin" v-on:logout="logout" />
     </div>
 
     <div class="panel__content">
