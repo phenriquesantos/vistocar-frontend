@@ -17,6 +17,9 @@ export default {
 
     if(this.$route.params.id){
       this.clientId = this.$route.params.id;
+      if(this.user.role == 'client' && this.clientId != this.user.id){
+        this.$router.push(`/admin/client/edit/${this.user.clientId}`);
+      }
 
       await this.getClient();
     }
@@ -32,7 +35,8 @@ export default {
       rgNumber: '',
       rgUf: '',
       email: '',
-      user: undefined
+      user: undefined,
+      phone: ''
     }
   },
 

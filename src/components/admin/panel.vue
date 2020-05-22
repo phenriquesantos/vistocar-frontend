@@ -23,7 +23,7 @@ export default {
         }
       }catch(e){
         delete localStorage.user;
-        this.$router.push('/login');
+        this.$router.push('/');
       }
     }
   },
@@ -42,7 +42,7 @@ export default {
   methods: {
     logout(){
       delete localStorage.user;
-      this.$router.push('/login')
+      this.$router.push('/');
     }
   }
 }

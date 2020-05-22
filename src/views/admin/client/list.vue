@@ -12,7 +12,12 @@ export default {
     try {
       if (localStorage.user) {
         this.user = JSON.parse(localStorage.user);
-        await this.getClientList();
+
+        if(this.user.role != 'client'){
+          await this.getClientList();
+        }else{
+          await this.getClient();
+        }
       }
     } catch (e) {
       console.log(`ERROR ${e.code} - ${e.message}`);
@@ -40,6 +45,27 @@ export default {
         if (data) {
           // console.log(data);
           this.clients = data;
+        }
+      } catch (e) {
+        console.log(`ERROR ${e.code} - ${e.message}`);
+      }
+    },
+    async getClient() {
+      try {
+        const { data } = await axios({
+          url: `/client/${this.user.clientId}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.user.jwt}`
+          }
+        });
+
+        if (data) {
+          this.clients = [{
+            id: data.id,
+            name: data.first_name,
+            email: data.email
+          }];
         }
       } catch (e) {
         console.log(`ERROR ${e.code} - ${e.message}`);

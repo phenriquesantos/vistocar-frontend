@@ -1,18 +1,18 @@
 <script>
-import header from './header';
-import footer from './footer';
+// import header from './header';
+// import footer from './footer';
 export default {
   components: {
-    'header-default': header,
-    'footer-default': footer,
+    // 'header-default': header,
+    // 'footer-default': footer,
   }
 }
 </script>
 
 <template>
   <div class="">
-    <header-default />
+    <!-- <header-default /> -->
     <slot></slot>
-    <footer-default />
+    <!-- <footer-default />; -->
   </div>
 </template>

@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       user:{
+        id: '',
         firstName: '',
         lastName: '',
         cpf: '',
@@ -47,7 +48,7 @@ export default {
         await this.createUser();
         await this.createClient();
 
-        this.$router.push('/login')
+        this.$router.push('/')
       }catch(e){
         console.log(`ERROR ${e.code} - ${e.message}`);
         this.error = 'Erro ao completar requisição tente novamente mais tarde.';
@@ -55,7 +56,7 @@ export default {
     },
 
     async createUser(){
-      await axios({
+      const { data } = await axios({
         method: 'POST',
         url: '/user',
         data: {
@@ -67,6 +68,10 @@ export default {
           'password': this.user.password,
         }
       });
+
+      if(data){
+        this.user.id = data.id;
+      }
     },
 
     async createClient(){
@@ -74,6 +79,7 @@ export default {
         method: 'POST',
         url: '/client',
         data: {
+          'user_id': this.user.id,
           'first_name': this.user.firstName,
           'last_name': this.user.lastName,
           'cpf': this.user.cpf,
@@ -190,6 +196,7 @@ export default {
 
 <style lang="less" scoped>
 .register{
+  min-height: 100vh;
   background: #ebebeb;
   padding: 100px 0;
 

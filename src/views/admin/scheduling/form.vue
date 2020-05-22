@@ -13,12 +13,19 @@ export default {
   async created(){
     if(localStorage.user){
       this.user = JSON.parse(localStorage.user);
+
+      if(this.user.role == 'client'){
+        this.client_id = this.user.clientId;
+      }else{
+        this.clientIdEnable = false;
+      }
     }
 
     if(this.$route.params.id){
       this.schedulingId = this.$route.params.id;
 
       await this.getScheduling();
+      // await this.getAvaliableHours();
     }
 
   },
@@ -30,12 +37,14 @@ export default {
       date: '',
       time: '',
       client_id: '',
+      clientIdEnable: true,
       scheduling: undefined,
       board: '',
       brand: '',
       model: '',
       year: '',
-      error: []
+      error: [],
+      user: undefined
     }
   },
 
@@ -49,6 +58,8 @@ export default {
             'Authorization': `Bearer ${this.user.jwt}`
           }
         });
+
+        console.log(data)
 
         if(data){
           this.status = data.status;
@@ -82,6 +93,7 @@ export default {
 
     async postScheduling(){
       try{
+        const date = this.date.split('/').join('-');
         const { data } = await axios({
           method: 'POST',
           headers:{
@@ -92,7 +104,7 @@ export default {
             'status': 'new',
             'created_at': Date.now(),
             'client_id': this.client_id,
-            'date': this.date,
+            'date': date,
             'time': this.time,
             'vehicle_board': this.board,
             'vehicle_brand': this.brand,
@@ -162,7 +174,7 @@ export default {
           <div class="row">
             <div class="col-6">
               <label for="txt_board">Cliente</label>
-              <input type="text" name="client_id" id="client_id" placeholder="ID do cliente" required v-model="client_id" />
+              <input type="text" name="client_id" id="client_id" placeholder="ID do cliente" required v-model="client_id" v-bind:disabled="clientIdEnable" />
             </div>
           </div>
           <div class="row">

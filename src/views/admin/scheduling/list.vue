@@ -28,11 +28,20 @@ export default {
   methods: {
     async getSchedulingList(){
       try{
+        let clientId = undefined;
+
+        if(this.user.role == 'client'){
+          clientId = this.user.clientId;
+        }
+
         const { data } = await axios({
           url: '/schedule',
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${this.user.jwt}`
+          },
+          params: {
+            'client_id': clientId
           }
         });
 
@@ -62,7 +71,7 @@ export default {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Cliente</th>
+            <th>Id do Cliente</th>
             <th>Data</th>
             <th>Horário</th>
             <th>Options</th>

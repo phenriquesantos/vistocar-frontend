@@ -13,8 +13,6 @@ export default {
   async created(){
     if(localStorage.user){
       const user = JSON.parse(localStorage.user);
-
-      console.log(user)
       try{
         const { data } = await axios({
           method: 'GET',
@@ -36,7 +34,9 @@ export default {
 
   data(){
     return {
+      clientId: 0,
       email: '',
+      userId: 0,
       password: '',
       error: []
     }
@@ -61,7 +61,10 @@ export default {
           }
         });
 
-        localStorage.user = JSON.stringify(data);
+        this.userId = data.id;
+        await this.getClient();
+
+        localStorage.user = JSON.stringify(Object.assign(data, { clientId: this.clientId }));
         this.$router.push('/admin')
       }catch(e) {
         if(e.message == 'Request failed with status code 400'){
@@ -69,13 +72,31 @@ export default {
             message: "E-mail e/ou senha invalido."
           }];
         }else{
-          console.log(e);
           this.error = [{
             message: "Erro ao fazer login. Tente novamente mais tarde!"
           }];
         }
       }
-    }
+    },
+
+    async getClient(){
+      try{
+        const { data } = await axios({
+          method: 'get',
+          url: '/client',
+          params: {
+            'user_id': this.userId
+          }
+        });
+
+        if(data){
+          console.log(data);
+          this.clientId = data[0].id;
+        }
+      }catch(e){
+        console.log(`ERRO ${e.code} - ${e.message}`)
+      }
+    },
   },
 
   name: 'login',
@@ -105,8 +126,8 @@ export default {
         <input type="password" name="pass" placeholder="Senha" id="txt_pass" required v-model="password" />
 
         <a href="#">Esqueceu a senha ?</a>
-        <button type="submit">Login</button>
-        <router-link to="/register"><button>Cadastrar</button></router-link>
+        <button type="submit">Login</button> <div style="clear: both" />
+        <router-link to="/register">Cadastrar</router-link>
       </form>
     </div>
   </page-default>
@@ -114,7 +135,7 @@ export default {
 
 <style lang="less">
   .login{
-    // height: 100vh;
+    min-height: 100vh;
     padding: 100px 0;
     background: #ebebeb;
     display: flex;
