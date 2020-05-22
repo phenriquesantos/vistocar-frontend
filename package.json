@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "start": "vue-cli-service serve --port 80",
+    "start": "node serve.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.4.1",
     "core-js": "^3.6.4",
+    "express": "^4.17.1",
     "router-view": "^1.1.7",
     "vue": "^2.6.11",
     "vue-fragment": "^1.5.1",
