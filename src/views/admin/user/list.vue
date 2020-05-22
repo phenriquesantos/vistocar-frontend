@@ -68,13 +68,13 @@ export default {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, i) in users"  v-bind:key="i">
-            <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
+          <tr v-for="(item, i) in users"  v-bind:key="i">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.email }}</td>
             <td class="list__content__table__buttons">
-              <router-link v-bind:to="`/admin/user/edit/${user.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--primary">Editar</router-link>
-              <router-link v-bind:to="`/admin/user/delete/${user.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--danger">Excluir</router-link>
+              <router-link v-bind:to="`/admin/user/edit/${item.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--primary">Editar</router-link>
+              <router-link v-bind:to="`/admin/user/delete/${item.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--danger" v-if="item.id != user.id">Excluir</router-link>
             </td>
           </tr>
         </tbody>

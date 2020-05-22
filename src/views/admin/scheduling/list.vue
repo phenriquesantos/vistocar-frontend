@@ -63,7 +63,7 @@ export default {
 
     </header> -->
     <div class="list__content">
-      <div class="list__content__button">
+      <div class="list__content__button" v-if="user.role == 'admin'">
         <router-link to="/admin/scheduling/new">Cadastrar Agendamento</router-link>
       </div>
 
