@@ -42,7 +42,7 @@ export default {
 
 <style lang="less" scoped>
 .item{
-      
+
   &__icon{
     display: inline-block;
     margin-right: 10px;
