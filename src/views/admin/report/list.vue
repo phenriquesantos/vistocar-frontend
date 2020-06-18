@@ -28,11 +28,20 @@ export default {
   methods: {
     async getReportList(){
       try{
+        let clientId = undefined;
+
+        if(this.user.role == 'client'){
+          clientId = this.user.clientId;
+        }
+
         const { data } = await axios({
           url: '/report',
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${this.user.jwt}`
+          },
+          params: {
+            'client_id': clientId
           }
         });
 
@@ -55,13 +64,18 @@ export default {
     </header> -->
     <div class="list__content">
       <div class="list__content__button">
-        <router-link to="/admin/report/new">Cadastrar Laudo</router-link>
+        <router-link
+          to="/admin/report/new"
+          v-if="user.role == 'admin'"  
+        >Cadastrar Laudo</router-link>
       </div>
 
       <table class="list__content__table" v-if="reports.length">
         <thead>
           <tr>
             <th>ID</th>
+            <th>Nome do cliente</th>
+            <th>ID do cliente</th>
             <th>Status</th>
             <th>Options</th>
           </tr>
@@ -69,10 +83,15 @@ export default {
         <tbody>
           <tr v-for="(report, i) in reports"  v-bind:key="i">
             <td>{{ report.id }}</td>
+            <td>{{ report.client.first_name }}</td>
+            <td>{{ report.client.id }}</td>
             <td>{{ report.status }}</td>
-            <td class="list__content__table__buttons">
+            <td class="list__content__table__buttons" v-if="user.role == 'admin'">
               <router-link v-bind:to="`/admin/report/edit/${report.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--primary">Editar</router-link>
               <router-link v-bind:to="`/admin/report/delete/${report.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--danger">Excluir</router-link>
+            </td>
+            <td v-else>
+              <router-link v-bind:to="`/admin/report/view/${report.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--primary">Vizualizar</router-link>
             </td>
           </tr>
         </tbody>

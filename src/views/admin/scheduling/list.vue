@@ -63,7 +63,7 @@ export default {
 
     </header> -->
     <div class="list__content">
-      <div class="list__content__button" v-if="user.role == 'admin'">
+      <div class="list__content__button">
         <router-link to="/admin/scheduling/new">Cadastrar Agendamento</router-link>
       </div>
 
@@ -71,7 +71,8 @@ export default {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Id do Cliente</th>
+            <th>Nome do cliente</th>
+            <th>ID do cliente</th>
             <th>Data</th>
             <th>Horário</th>
             <th>Options</th>
@@ -80,12 +81,23 @@ export default {
         <tbody>
           <tr v-for="(scheduling, i) in schedulings"  v-bind:key="i">
             <td>{{ scheduling.id }}</td>
+            <td>{{ scheduling.client.first_name }}</td>
             <td>{{ scheduling.client_id }}</td>
             <td>{{ scheduling.date }}</td>
             <td>{{ scheduling.time }}</td>
             <td class="list__content__table__buttons">
-              <router-link v-bind:to="`/admin/scheduling/edit/${scheduling.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--primary">Editar</router-link>
-              <router-link v-bind:to="`/admin/scheduling/delete/${scheduling.id}`" class="list__content__table__buttons__item list__content__table__buttons__item--danger">Excluir</router-link>
+              <router-link
+                v-bind:to="`/admin/scheduling/edit/${scheduling.id}`"
+                class="list__content__table__buttons__item list__content__table__buttons__item--primary"
+              >
+                Editar
+              </router-link>
+              <router-link
+                v-bind:to="`/admin/scheduling/delete/${scheduling.id}`"
+                class="list__content__table__buttons__item list__content__table__buttons__item--danger"
+              >
+                Excluir
+              </router-link>
             </td>
           </tr>
         </tbody>

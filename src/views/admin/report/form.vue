@@ -12,6 +12,10 @@ export default {
   async created() {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
+
+      if(this.user.role == 'admin'){
+        await this.getClients();
+      }
     }
 
     this.vehicleId = this.$route.query.vehicleId || 0;
@@ -21,6 +25,7 @@ export default {
       this.reportId = this.$route.params.id;
 
       await this.getReport();
+      await this.getVehicles();
     }
   },
 
@@ -31,11 +36,51 @@ export default {
       description: "",
       status: "",
       user: undefined,
-      reportId: ""
+      reportId: "",
+      clientList: [],
+      vehicleList: []
     };
   },
 
   methods: {
+    async getClients(){
+      try {
+        const { data } = await axios({
+          url: "/client",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.user.jwt}`
+          }
+        });
+
+        if (data) {
+          // console.log(data);
+          this.clientList = data;
+        }
+      } catch (e) {
+        console.log(`ERROR ${e.code} - ${e.message}`);
+      }
+    },
+
+    async getVehicles(){
+      try{
+        const { data } = await axios({
+          url: '/vehicle',
+          method: 'GET',
+          headers:{
+            'Authorization': `Bearer ${this.user.jwt}`
+          },
+          params: {
+            'client_id': this.clientId
+          }
+        });
+
+        this.vehicleList = data;
+      }catch(e){
+        console.log(`ERROR ${e.code} = ${e.message}`)
+      }
+    },
+
     async getReport() {
       try {
         const { data } = await axios({
@@ -122,26 +167,22 @@ export default {
 
       <div class="row">
         <div class="col-md-6">
-          <label for="txt_client-id">ID do cliente</label>
-          <input
-            type="number"
-            name
-            id="txt_client-id"
-            placeholder="Id do Cliente"
-            required
-            v-model="clientId"
-          />
+          <label for="sel_client-id">Cliente</label>
+          <select name="client" id="sel_client-id" v-model="clientId" v-on:change="getVehicles">
+            <option 
+              v-for="(client, i) in clientList"
+              v-bind:key="i"
+              v-bind:value="client.id">{{ client.name }}</option>
+          </select>
         </div>
         <div class="col-md-6">
-          <label for="txt_vehicle-id">ID do Veiculo</label>
-          <input
-            type="number"
-            name
-            id="txt_vehicle-id"
-            placeholder="ID do cliente"
-            required
-            v-model="vehicleId"
-          />
+          <label for="sel_vehicle-id">Veículo</label>
+          <select name="vehicle" id="sel_vehicle-id" v-model="vehicleId">
+            <option 
+              v-for="(vehicle, i) in vehicleList"
+              v-bind:key="i"
+              v-bind:value="vehicle.id">{{ `${vehicle.model} - ${vehicle.board}` }}</option>
+          </select>
         </div>
       </div>
 

@@ -61,7 +61,9 @@ export default {
           }
         });
 
-        this.userId = data.id;
+        console.log(data);
+
+        this.userId = data.id_user;
         await this.getClient();
 
         localStorage.user = JSON.stringify(Object.assign(data, { clientId: this.clientId }));
@@ -91,7 +93,7 @@ export default {
 
         if(data){
           console.log(data);
-          this.clientId = data[0].id;
+          this.clientId = data.id;
         }
       }catch(e){
         console.log(`ERRO ${e.code} - ${e.message}`)

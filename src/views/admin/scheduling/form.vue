@@ -1,7 +1,6 @@
 <script>
 import axios from '@/plugins/axios';
 import adminPanel from '@/components/admin/panel.vue';
-
 import { TheMask } from 'vue-the-mask';
 
 export default {
@@ -16,8 +15,14 @@ export default {
 
       if(this.user.role == 'client'){
         this.client_id = this.user.clientId;
+        this.listClient.push({
+          id: this.user.clientId,
+          name: this.user.first_name
+        });
+        await this.getVehicles();
       }else{
         this.clientIdEnable = false;
+        await this.getClients();
       }
     }
 
@@ -25,6 +30,7 @@ export default {
       this.schedulingId = this.$route.params.id;
 
       await this.getScheduling();
+      await this.getVehicles();
       // await this.getAvaliableHours();
     }
 
@@ -44,11 +50,51 @@ export default {
       model: '',
       year: '',
       error: [],
-      user: undefined
+      vehicle_id: '0',
+      user: undefined,
+      listClient: [],
+      vehicleList: [],
     }
   },
 
   methods: {
+    changeVehicle(){
+      if(this.vehicle_id == "0"){
+        this.board = '';
+        this.brand = '';
+        this.model = '';
+        this.year = '';
+      }else{
+        const vehicle = this.vehicleList.filter(vehicle => {
+          if(vehicle.id == this.vehicle_id) return vehicle;
+        })[0];
+
+        this.board = vehicle.board;
+        this.brand = vehicle.brand;
+        this.model = vehicle.model;
+        this.year = vehicle.year;
+      }
+    },
+
+    async getClients(){
+      try {
+        const { data } = await axios({
+          url: "/client",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.user.jwt}`
+          }
+        });
+
+        if (data) {
+          // console.log(data);
+          this.listClient = data;
+        }
+      } catch (e) {
+        console.log(`ERROR ${e.code} - ${e.message}`);
+      }
+    },
+
     async getScheduling(){
       try{
         const { data } = await axios({
@@ -67,6 +113,12 @@ export default {
           this.date = data.date;
           this.time = data.time;
           this.client_id = data.client_id;
+          this.board = data.vehicle.board;
+          this.brand = data.vehicle.brand;
+          this.model = data.vehicle.model;
+          this.year = data.vehicle.year;
+          this.vehicle_id = data.vehicle.id;
+          this.avaliableHours = [data.time];
         }
       }catch(e){
         console.log(`ERROR ${e.code} - ${e.message}`);
@@ -91,6 +143,25 @@ export default {
       }
     },
 
+    async getVehicles(){
+      try{
+        const { data } = await axios({
+          url: '/vehicle',
+          method: 'GET',
+          headers:{
+            'Authorization': `Bearer ${this.user.jwt}`
+          },
+          params: {
+            'client_id': this.client_id
+          }
+        });
+
+        this.vehicleList = data;
+      }catch(e){
+        console.log(`ERROR ${e.code} = ${e.message}`)
+      }
+    },
+
     async postScheduling(){
       try{
         const date = this.date.split('/').join('-');
@@ -109,7 +180,8 @@ export default {
             'vehicle_board': this.board,
             'vehicle_brand': this.brand,
             'vehicle_model': this.model,
-            'vehicle_year': this.year
+            'vehicle_year': this.year,
+            'vehicle_id': this.vehicle_id
           }
         });
 
@@ -123,12 +195,15 @@ export default {
 
     async putScheduling(){
       try{
+        const date = this.date.split('/').join('-');
+
         const body = {
           'status': 'new',
           'created_at': Date.now(),
           'client_id': this.client_id,
-          'date': this.date,
+          'date': date,
           'time': this.time,
+          'vehicle_id': this.vehicle_id,
           'vehicle_board': this.board,
           'vehicle_brand': this.brand,
           'vehicle_model': this.model,
@@ -169,14 +244,34 @@ export default {
           <img src="../assets/images/vistocar-logo.png" title="Vistocar" alt="Vistocar" />
         </figure> -->
         <h1 class="scheduling__form__title">Agendamento de vistoria</h1>
+
+        <div class="row">
+          <div class="col-6">
+            <label for="sel_client">Cliente</label>
+            <select name="client" id="sel_client" v-model="client_id" v-on:change="getVehicles()">
+              <option
+                v-for="(client, i) in listClient"
+                v-bind:key="i"
+                v-bind:value="client.id"
+              >{{ client.name }}</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for="sel_vehicle">Veículo</label>
+            <select name="vehicle" id="sel_vehicle" v-model="vehicle_id" v-on:change="changeVehicle()">
+              <option value="0">Novo</option>
+              <option
+                v-for="(vehicle, i) in vehicleList"
+                v-bind:key="i"
+                v-bind:value="vehicle.id"
+              >{{ `${vehicle.model} - ${vehicle.board}` }}</option>
+            </select>
+          </div>
+        </div>
+
         <fieldset>
           <legend>Dados do Veículo</legend>
-          <div class="row">
-            <div class="col-6">
-              <label for="txt_board">Cliente</label>
-              <input type="text" name="client_id" id="client_id" placeholder="ID do cliente" required v-model="client_id" v-bind:disabled="clientIdEnable" />
-            </div>
-          </div>
+
           <div class="row">
             <div class="col-6">
               <label for="txt_brand">Marca</label>

@@ -75,6 +75,7 @@ export default {
     },
 
     async createClient(){
+      // console.log(this.user.id);
       await axios({
         method: 'POST',
         url: '/client',
