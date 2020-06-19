@@ -38,7 +38,7 @@ export default {
         }); 
 
         if(data){
-          this.report = report;
+          this.report = data;
         }
       }catch(e){
         console.log(`${e.code} - ${e.message}`);
@@ -51,7 +51,7 @@ export default {
 <template>
   <admin-panel class="list">
     <div class="report" v-if="report">
-      
+
     </div>
   </admin-panel>
 </template>
