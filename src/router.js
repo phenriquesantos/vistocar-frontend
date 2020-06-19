@@ -104,7 +104,7 @@ export default new Router({
     {
       component: () => import('./views/admin/report/view.vue'),
       name: 'admin-repot-view',
-      path: '/admin/report/view'
+      path: '/admin/report/view/:id'
     }
   ]
 })

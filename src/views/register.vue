@@ -42,16 +42,16 @@ export default {
 
       if(this.user.password != this.user.repeatPassword){
         this.error = 'Senhas não coincidem';
-      }
-
-      try{
-        await this.createUser();
-        await this.createClient();
-
-        this.$router.push('/')
-      }catch(e){
-        console.log(`ERROR ${e.code} - ${e.message}`);
-        this.error = 'Erro ao completar requisição tente novamente mais tarde.';
+      }else{
+        try{
+          await this.createUser();
+          await this.createClient();
+  
+          this.$router.push('/')
+        }catch(e){
+          console.log(`ERROR ${e.code} - ${e.message}`);
+          this.error = 'Erro ao completar requisição tente novamente mais tarde.';
+        }
       }
     },
 
