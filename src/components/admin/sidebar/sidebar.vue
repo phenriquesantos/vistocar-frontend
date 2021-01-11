@@ -73,6 +73,11 @@ export default {
         color: white;
       }
 
+      .kjdhfsh{
+        color: white;
+	font-size: 12px;
+      }
+
       a{
         display: block;
         color: white;
